@@ -42,6 +42,17 @@ services:
       - sqldb
     restart: "no"
     ports:
-      - 8000:8000
+      - 8070:8070
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.lms-app.rule=Host(`aisyiyah-lms.ahdadigital.com`)
+      - traefik.http.routers.lms-app.entrypoints=websecure
+      - traefik.http.routers.lms-app.tls.certresolver=letsencrypt
+      - traefik.http.services.lms-app.loadbalancer.server.port=6654
+      - traefik.http.routers.lms-app-insecure.rule=Host(`aisyiyah-lms.ahdadigital.com`)
+      - traefik.http.routers.lms-app-insecure.entrypoints=web
+      - traefik.http.routers.lms-app-insecure.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      
     volumes:
       - /etc/localtime:/etc/localtime
