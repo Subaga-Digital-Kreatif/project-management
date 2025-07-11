@@ -42,7 +42,7 @@ services:
       - sqldb
     restart: "no"
     ports:
-      - 8070:8070
+      - 8000:8070
     labels:
       - traefik.enable=true
       - traefik.http.routers.lms-app.rule=Host(`aisyiyah-lms.ahdadigital.com`)
